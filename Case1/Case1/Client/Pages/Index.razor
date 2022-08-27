@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
+<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
+<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+<ul class="nav flex-column">
+
+    <li class="nav-item px-3">
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <span class="oi oi-home" aria-hidden="true"></span> Home
+        </NavLink>
+    </li>
+
+    @foreach (var category in SubCategories)
+    {
+        <CategoryNavLink Category="category" />
+    }
+</ul>
+
+@code { 
+    IEnumerable<Category> SubCategories
+        => CategoryHelpers.Categories.Where(a => a.ParentId == 0);
+}
