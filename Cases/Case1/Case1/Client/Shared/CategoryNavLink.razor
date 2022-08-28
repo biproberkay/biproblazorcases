@@ -1,6 +1,6 @@
 ﻿<li class="nav-item px-3">
     <NavLink @key="Category" class="nav-link" href=@($"categories/{Category.Id}")>
-        <span class="@icon" aria-hidden="true"></span> @Category.Title
+        <MudIcon Icon="@icon" aria-hidden="true"></MudIcon> @Category.Title
     </NavLink>
     @if (HasSubCategories)
     {
@@ -18,7 +18,7 @@
 
     bool HasSubCategories => SubCategories.Any();
 
-    string icon => HasSubCategories ? "oi oi-chevron-bottom" : "oi oi-chevron-right";
+    string icon => HasSubCategories ? Icons.Filled.SubdirectoryArrowRight : Icons.Outlined.LabelImportant;
 
     IEnumerable<Category> SubCategories
         => CategoryHelpers.Categories.Where(a => a.ParentId == Category.Id);
