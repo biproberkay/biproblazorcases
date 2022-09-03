@@ -1,0 +1,37 @@
+﻿@page "/Checkbox"
+<h3>Checkbox</h3>
+
+@foreach (var cb in Checkboxes)
+{
+    <div class="m-2 p-2">
+        <input type="checkbox" checked="@cb.Value" @onchange="(e) => Checked(e, cb.Key)" />Input Check 1 - @cb.Value
+    </div>
+    @if (cb.Value)
+    {
+        <div class="m-4 p-2 bg-secondary">
+            It is a good platform to learn programming.
+            It is an educational website. Prepare for the Recruitment drive
+            of product based companies like Microsoft, Amazon, Adobe etc with
+            a free online placement preparation course. The course focuses
+            on various MCQ's & Coding question likely to be asked in the
+            interviews & make your upcoming placement season efficient and
+            successful.
+        </div>
+    }
+}
+
+@code {
+
+    protected void Checked(ChangeEventArgs e, int no)
+    {
+        var x = e.Value;
+        Checkboxes[no] = (bool)e.Value;
+    }
+
+    protected Dictionary<int, bool> Checkboxes = new Dictionary<int, bool>
+    {
+        { 1, false },
+        { 2, false },
+        { 3, true },
+    };
+}

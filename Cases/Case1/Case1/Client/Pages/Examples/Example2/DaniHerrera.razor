@@ -1,0 +1,37 @@
+﻿@page "/example-2"
+<h3>DaniHerrera</h3>
+<NavLink href="/example-2-c">uyarlaması</NavLink>
+<input class="border" type="text" @oninput="@( (e) => ApplyProjFilter(e) )">
+<ul>
+    @foreach(var p in filterList)
+    {
+        <li>@p.Name</li>
+    }
+</ul>
+
+@code {
+    public class Project
+    {
+        public string Name { get; set; }
+    }
+
+    private IEnumerable<Project> projList { get; set; } 
+    private List<Project> filterList { get; set; } 
+    public string projFilter { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        projList = new []
+        {
+            new Project{ Name = "pA"},
+            new Project{ Name = "pB"} //, ...
+        }.ToList();
+        filterList = projList.ToList();
+    }
+
+    private async Task ApplyProjFilter(ChangeEventArgs e)
+    {
+        projFilter = e.Value.ToString();
+        filterList = projList.Where(p => p.Name.Contains(projFilter)).ToList();
+    }
+}

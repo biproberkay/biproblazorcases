@@ -1,0 +1,25 @@
+﻿<li class="nav-item px-3">
+    <NavLink @key="Category" class="nav-link" href=@($"categories/{Category.Id}")>
+        <MudIcon Icon="@icon" aria-hidden="true"></MudIcon> @Category.Title
+    </NavLink>
+    @if (HasSubCategories)
+    {
+        <ul class="pl-1 nav flex-column">
+            @foreach (var category in SubCategories)
+            {
+                <CategoryNavLink Category="category" />
+            }
+        </ul>
+    }
+</li>
+@code {
+    [Parameter]
+    public Category Category { get; set; }
+
+    bool HasSubCategories => SubCategories.Any();
+
+    string icon => HasSubCategories ? Icons.Filled.SubdirectoryArrowRight : Icons.Outlined.LabelImportant;
+
+    IEnumerable<Category> SubCategories
+        => CategoryHelpers.Categories.Where(a => a.ParentId == Category.Id);
+}
