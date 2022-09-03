@@ -1,0 +1,63 @@
+﻿@page "/"
+<h3>Checkbox</h3>
+
+@foreach (var topic in SeedDataHelper.topics)
+{
+    <div class="m-2 p-2">
+        <input 
+            type="checkbox" 
+            checked="false" 
+            @onchange="(e) => Checked(e, topic.Id)" 
+            />
+        Input Check 1 - @topic.Name
+    </div>
+}
+<ol>
+    @foreach (var statement in statementsFiltered)
+    {
+        <li>
+            @statement.TextContent
+        </li>
+    }
+            
+</ol>
+
+@code {
+    List<Statement> statementsFiltered = new();
+    protected void Checked(ChangeEventArgs e, int no)
+    {
+        var x = e.Value;
+        statementsFiltered.AddRange(SeedDataHelper.statements.Where(s => s.TopicId == no));
+    }
+
+    protected Dictionary<Topic, Statement> Checkboxes = new Dictionary<Topic, Statement>
+    {
+    };
+    public class Statement{
+        public int Id { get; set; }
+        public string TextContent { get; set; }
+        public int TopicId { get; set; }
+    }
+
+    public class Topic{
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public static class SeedDataHelper {
+
+        public static List<Topic> topics = new(){
+            new Topic { Id = 1, Name = "Computer" },
+            new Topic {Id = 2,Name = "Software"},
+            new Topic { Id = 3, Name = "Hardware" },
+            new Topic { Id = 4, Name = "Applications" }
+        };
+        public static List<Statement> statements = new(){
+            new Statement{ Id=1,TopicId=1, TextContent="Computer is great!"},
+            new Statement{ Id=2,TopicId=2, TextContent="Software is great!"},
+            new Statement{ Id=3,TopicId=3, TextContent="Hardware is great!"},
+            new Statement{ Id=4,TopicId=4, TextContent="Applications is great!"},
+            new Statement{ Id=5,TopicId=5, TextContent="Programming is great!"}
+        };
+    }
+}
