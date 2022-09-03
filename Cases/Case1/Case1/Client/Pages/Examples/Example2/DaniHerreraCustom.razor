@@ -1,0 +1,34 @@
+﻿@page "/dani-herrera-custom"
+<h3>DaniHerrera</h3>
+<MudSelect T="Category" MultiSelection="true" class="border" >
+    @foreach (var category in categories)
+    {        
+        <MudSelectItem T="Category" @bind-filterList="@filterList" @onselect="@( (e) => ApplyProjFilter(e))"> 
+            @category.Title 
+        </MudSelectItem>
+    }
+</MudSelect>
+<ul>
+    @foreach(var p in filterList)
+    {
+        <li>@p.Name</li>
+    }
+</ul>
+
+@code {
+    private IEnumerable<Product> productList = ProductHelpers.Products.ToList();
+    private IEnumerable<Category> categories = CategoryHelpers.Categories.ToList();
+    private List<Product> filterList = new();
+    public int projFilter { get; set; }
+
+    //protected override void OnInitialized()
+    //{
+    //    filterList = productList.ToList();
+    //}
+
+    private async Task ApplyProjFilter(EventArgs e)
+    {
+        projFilter = Convert.ToInt32(e);
+        filterList.AddRange( productList.Where(p => p.CategoryId.Equals(projFilter)).ToList() );
+    }
+}

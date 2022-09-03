@@ -1,23 +1,58 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home - 🏠</PageTitle>
 
+@*
 <MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
 <MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
 <MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
-<ul class="nav flex-column">
+*@
+<MudGrid>
+    <MudItem md="4">
+        <MudPaper>
+            <ul class="nav flex-column">
 
-    <li class="nav-item px-3">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <span class="oi oi-home" aria-hidden="true"></span> Home
-        </NavLink>
-    </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
 
-    @foreach (var category in SubCategories)
-    {
-        <CategoryNavLink Category="category" />
-    }
-</ul>
+                @foreach (var category in SubCategories)
+                {
+                <CategoryNavLink Category="category" />
+                }
+            </ul>
+        </MudPaper>
+    </MudItem>
+    <MudItem md="8">
+        <MudPaper>
+            <MudList>
+                <MudListItem Avatar="@Icons.Material.Filled.Image">Rebum sadipscing duo dolor luptatum et ipsum invidunt sed et sit gubergren invidunt amet sed sed amet erat vel dolor</MudListItem>
+        <MudDivider />
+                <MudListItem Avatar="@Icons.Material.Filled.Image">Gubergren eirmod amet magna nulla lorem nonumy eos erat dignissim ipsum no et at nibh duis assum ipsum vel lorem</MudListItem>
+        <MudDivider />
+                <MudListItem Avatar="@Icons.Material.Filled.Image">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>Lorem sanctus accusam eirmod amet magna et diam justo amet minim vulputate et diam tation voluptua elitr eirmod erat dolore</CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText>This day everything happend.</MudText>
+                            <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudListItem>
+            </MudList>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
 
 @code { 
     IEnumerable<Category> SubCategories
